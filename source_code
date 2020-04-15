@@ -1,0 +1,25 @@
+// This #include statement was automatically added by the Particle IDE.
+#include <HC_SR04.h> //note to self: DONT USE HC-SR04. it's bad
+
+double distance = 0.0;
+
+int triggerPin = D4;
+int echoPin = D5;
+
+HC_SR04 rangefinder = HC_SR04(triggerPin, echoPin);
+
+
+void setup()
+{
+    Spark.variable("distance", &distance, DOUBLE);
+}
+
+void loop()
+{
+    distance = rangefinder.getDistanceCM();
+    
+    Particle.publish("distance", String(distance), PRIVATE);
+    
+    delay(30000);
+    
+}
